@@ -2,11 +2,7 @@ export enum Section {
   Profile,
   Skills,
   CurriculumVitae,
-  Experiments,
   Projects,
-  Talks,
-  Packages,
-  Misc,
 };
 
 export enum Language {

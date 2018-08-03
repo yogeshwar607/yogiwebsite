@@ -18,17 +18,17 @@
     <CurriculumVitae :data="data.curriculumVitae"/>
     <CodeLine/>
     <CodeLine/>
-    <ShowCaseSection
+    <!-- <ShowCaseSection
       :section="Section.Experiments"
       name="experiments"
       :data="data.experiments"
-    />
+    /> -->
     <ShowCaseSection
       :section="Section.Projects"
       name="projects"
       :data="data.projects"
     />
-    <ShowCaseSection
+    <!-- <ShowCaseSection
       :section="Section.Talks"
       name="talks"
       :data="data.talks"
@@ -42,7 +42,7 @@
       :section="Section.Misc"
       name="misc"
       :data="data.misc"
-    />
+    /> -->
     <Legal/>
     <CodeLine/>
     <Privacy/>

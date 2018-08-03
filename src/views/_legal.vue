@@ -2,13 +2,13 @@
   <div class="legal" @click.stop="toggle" :class="{ collapsed: collapsed }">
     <Comment
       v-if="collapsed"
-      :comment="`(c) ${year} Tamino Martinius`"
+      :comment="`(c) ${year}  Yogeshwar`"
     >
       <Collapsed/>
     </Comment>
     <CommentBlock
       v-else
-      :comment="`(c) ${year}\n\nTamino Martinius\nLehdenstr.  21\n06847 Dessau\n\nlawyer@zaku.eu`"
+      :comment="`(c) ${year}\n\nYogeshwar \nsoulputs@gmail.com`"
     />
   </div>
 </template>
