@@ -202,12 +202,13 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   config.devtool = '#eval-source-map';
   config.devServer = {
-    port: 3000,
+    port: 4001,
     hot: true,
     host: 'localhost',
     historyApiFallback: true,
     noInfo: false,
     contentBase: './dist',
+    disableHostCheck: true
   };
 }
 
