@@ -2,12 +2,12 @@
   <div class="stage" @click.stop="toggle" :class="{ collapsed: collapsed }">
     <Comment
       :indentation="1"
-      v-if="collapsed"
+     
       :comment="abbreviation"
     >
       <Collapsed/>
     </Comment>
-    <template v-if="!collapsed">
+    <template >
       <CodeLine>
         <Tab/>
         <span class="expression">{</span>
@@ -70,7 +70,7 @@
       <CodeLine>
         <Tab/>
         <span class="expression">}</span>
-        <span class="expression" v-if="isRuby">.with_indifferent_access</span>
+        <span class="expression" v-if="isRuby"></span>
         <span class="expression">,</span>
       </CodeLine>
       <CodeLine v-if="!isLast"/>
@@ -93,7 +93,7 @@
   export default {
     data() {
       return {
-        collapsed: true,
+        collapsed: false,
       };
     },
     props: [
@@ -103,13 +103,13 @@
     ],
     methods: {
       toggle() {
-        this.collapsed = !this.collapsed;
+      //  this.collapsed = !this.collapsed;
         track((this.collapsed ? 'Close' : 'Open') + 'Stage', this.abbreviation);
       },
     },
     computed: {
       multiStringStart() {
-        this.collapsed = !this.collapsed;
+     //  this.collapsed = !this.collapsed;
         track((this.collapsed ? 'Close' : 'Open') + 'Stage', this.abbreviation);
       },
     },

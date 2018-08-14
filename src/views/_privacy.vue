@@ -1,14 +1,13 @@
 <template>
   <div class="privacy" @click.stop="toggle" :class="{ collapsed: collapsed }">
     <Comment
-      v-if="collapsed"
+      
       comment="Privacy"
     >
       <Collapsed/>
     </Comment>
     <CommentBlock
-      v-else
-      :comment="privacy"
+     
     />
   </div>
 </template>
@@ -25,7 +24,7 @@
   export default {
     data() {
       return {
-        collapsed: !openOnStart,
+        collapsed: false,
         privacy: `
 This website uses Google Analytics and cookies to record user activities.
         `,
@@ -33,7 +32,7 @@ This website uses Google Analytics and cookies to record user activities.
     },
     methods: {
       toggle() {
-        this.collapsed = !this.collapsed;
+      //  this.collapsed = !this.collapsed;
         track((this.collapsed ? 'Close' : 'Open') + 'Legal', 'none');
       },
     },

@@ -1,13 +1,13 @@
 <template>
   <div class="legal" @click.stop="toggle" :class="{ collapsed: collapsed }">
     <Comment
-      v-if="collapsed"
+      
       :comment="`(c) ${year}  Yogeshwar`"
     >
       <Collapsed/>
     </Comment>
     <CommentBlock
-      v-else
+      
       :comment="`(c) ${year}\n\nYogeshwar \nsoulputs@gmail.com`"
     />
   </div>
@@ -25,7 +25,7 @@
   export default {
     data() {
       return {
-        collapsed: !openOnStart
+        collapsed: false
       };
     },
     mounted() {
@@ -37,7 +37,7 @@
     },
     methods: {
       toggle() {
-        this.collapsed = !this.collapsed;
+        //this.collapsed = !this.collapsed;
         track((this.collapsed ? "Close" : "Open") + "Legal", "none");
       }
     },

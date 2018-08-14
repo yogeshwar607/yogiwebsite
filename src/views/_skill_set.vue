@@ -1,7 +1,7 @@
 <template>
   <div class="skillset" @click.stop="toggle" :class="{ collapsed: collapsed }">
-    <Comment :comment="title"><Collapsed v-if="collapsed"/></Comment>
-    <template v-if="!collapsed">
+    <Comment :comment="title"><Collapsed /></Comment>
+    <template >
       <template v-if="Array.isArray(skillset.data)">
         <SkillSet
           v-for="subset in skillset.data"
@@ -10,7 +10,7 @@
           :key="subset.title"
         />
       </template>
-      <template v-else v-for="(skill, name) in skillset.data">
+      <template  v-for="(skill, name) in skillset.data">
         <Skill
           :name="name"
           :skill="skill"
@@ -34,7 +34,7 @@
     name: 'SkillSet',
     data() {
       return {
-        collapsed: true,
+        collapsed: false,
       };
     },
     props: [
@@ -43,7 +43,7 @@
     ],
     methods: {
       toggle() {
-        this.collapsed = !this.collapsed;
+     //   this.collapsed = !this.collapsed;
         track((this.collapsed ? 'Close' : 'Open') + 'SkillSet', this.title);
       },
     },

@@ -5,7 +5,7 @@ set -x
 
 source config
 
-CACHE="max-age=31536000,public"
+CACHE="max-age=3153,public"
 NO_CACHE="max-age=0,no-cache,no-store,must-revalidate"
 
 scripts/build.sh

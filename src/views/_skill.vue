@@ -14,7 +14,7 @@
     <String :value="skill.name"></String>
     <span class="white-space space"></span>
     <span class="expression">}</span>
-    <span class="variable" v-if="isRuby">.with_indifferent_access</span>
+    <span class="variable" v-if="isRuby"></span>
   </Variable>
 </template>
 

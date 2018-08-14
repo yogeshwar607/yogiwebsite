@@ -617,7 +617,8 @@ export const curriculumVitae: (Job | Education)[] = [{
  * Projects *
  ***********/
 
-export const projects: ShowCase[] = [{
+export const projects: ShowCase[] = [
+  {
     name: 'Docauth DApp',
     startsAt: undefined,
     endsAt: undefined,
@@ -627,6 +628,27 @@ export const projects: ShowCase[] = [{
     urls: [
       'https://docauth.soulputs.com/',
       'https://github.com/yogeshwar607/authdoc'
+    ],
+    media: [],
+    skills: {
+      solidity,
+      nodejs,
+      web3,
+      truffle,
+      remix,
+      infura,
+      ipfs,
+    },
+  },
+  {
+    name: 'Bounty Swap',
+    startsAt: undefined,
+    endsAt: undefined,
+    description: `
+    Token exchange  on  Ethereum Blockchain
+    `,
+    urls: [
+      'https://blockswap-46c8d.firebaseapp.com/trade',
     ],
     media: [],
     skills: {
