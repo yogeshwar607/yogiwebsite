@@ -21,11 +21,9 @@ export const myName = 'Yogeshwar';
 export const profession = 'Developer';
 export const street = '';
 export const postalCode = '412101';
-export const city = 'Pune';
+export const city = 'Mumbai';
 export const emails: string[] = [
-  'soulputs@gmail.com',
   'yogeshwar9354@gmail.com',
-  'soulputs@gmail.com',
 ];
 export const socialNetworks: {
   [key: string]: string
@@ -57,7 +55,10 @@ export const lambda: Skill = {
   level: 0.6,
   name: 'Lambda'
 };
-
+export const fargate: Skill = {
+  level: 0.7,
+  name: 'fargate'
+};
 // AWS / Data
 export const dynamodb: Skill = {
   level: 0.5,
@@ -194,6 +195,10 @@ export const ios: Skill = {
   level: 0.5,
   name: 'iOS'
 };
+export const meteor: Skill = {
+  level: 0.8,
+  name: 'Meteor'
+}
 export const ionic: Skill = {
   level: 0.7,
   name: 'Ionic'
@@ -349,6 +354,7 @@ export const skills: SkillSet[] = [
           android,
           cordova,
           docker,
+          meteor,
           git,
           heroku,
           ios
@@ -371,7 +377,8 @@ export const skills: SkillSet[] = [
         data: {
           ec2,
           ecs,
-          lambda
+          lambda,
+          fargate
         }
       },
       {
@@ -433,7 +440,40 @@ export const skills: SkillSet[] = [
  * Curriculum Vitae *
  *******************/
 
-export const curriculumVitae: (Job | Education)[] = [{
+export const curriculumVitae: (Job | Education)[] = [
+  {
+    company: 'frontiermicroscopy',
+    description: `Responsible for designing and developing Cross border Remittance platform.
+    System includes below core modules - 
+    KYC Engine: Automates KYC for various corridors for fast customer on boarding, integrated with
+      Jumio for Document/FaceMatch verification and Trulioo for  verification.
+    Compliance Engine: Built multi level compliance check triggers integrated in database level,
+      integrated with Worldcheck for global watchlist compliance check.
+    Processing Engine: Integrated RabbitMQ and Redis for faster and sequential processing of payments 
+      even under distributed environment across multiple payment gateways.
+    Distributed Logging: Used ELK stack for log aggregation and faster searching of logs.
+    `,
+    startsAt: new Date('2018-09-30'),
+    endsAt: undefined,
+    remote: true,
+    position: [
+      'JS consultants/developer',
+      'Product Developer',
+    ],
+    skills: {
+      meteor,
+      lambda,
+      rds,
+      fargate,
+      nodejs,
+      mongodb,
+      api,
+      psql,
+      redis,
+      elasticsearch,
+    },
+  },
+  {
     company: 'xwapp',
     description: `Responsible for designing and developing Cross border Remittance platform.
     System includes below core modules - 
@@ -446,7 +486,7 @@ export const curriculumVitae: (Job | Education)[] = [{
     Distributed Logging: Used ELK stack for log aggregation and faster searching of logs.
     `,
     startsAt: new Date('2017-07-01'),
-    endsAt: undefined,
+    endsAt: new Date('2018-10-01'),
     remote: true,
     position: [
       'Growth Hacker',
@@ -490,6 +530,7 @@ export const curriculumVitae: (Job | Education)[] = [{
       rds,
       nodejs,
       mongodb,
+      meteor,
       api,
       psql,
       redis,
@@ -504,7 +545,7 @@ export const curriculumVitae: (Job | Education)[] = [{
       Major task were to properly sync Mongodb and Elasticsearch and create reports using kibana over this.
     `,
     startsAt: new Date('2018-06-30'),
-    endsAt: undefined,
+    endsAt: new Date('2018-12-15'),
     remote: true,
     position: 'Freelance Data Analyst',
     skills: {
