@@ -444,8 +444,11 @@ export const skills: SkillSet[] = [
 export const curriculumVitae: (Job | Education)[] = [
   {
     company: 'frontiermicroscopy.com',
-    description: `Responsible for maintaining and building feautures around meteor app and integrating this app with native desktop app`,
-    startsAt: new Date('2018-09-30'),
+    description: ` Responsible for maintaining and building feautures around 
+    meteor app and integrating this app with native desktop app 
+    `,
+
+    startsAt: new Date('2018-10-01'),
     endsAt: undefined,
     remote: true,
     position: [

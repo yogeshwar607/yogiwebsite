@@ -8,7 +8,7 @@
     </Comment>
     <CommentBlock
       
-      :comment="`(c) ${year}\n\nYogeshwar \nsoulputs@gmail.com`"
+      :comment="`(c) ${year}\n\nYogeshwar \nyogeshwar9354@gmail.com`"
     />
   </div>
 </template>
