@@ -313,23 +313,14 @@ export const ipfs: Skill = {
 
 
 export const skills: SkillSet[] = [
-  {
-    title:'Blockchain',
-    data:{
-      solidity,
-      web3,
-      ipfs,
-      remix,
-      truffle,
-      infura,
-    },
-  },
+  
   {
     title: 'Backend',
     data: [{
         title: 'Code',
         data: {
           nodejs,
+          meteor,
           typescript,
           pinescript,
           python,
@@ -350,11 +341,11 @@ export const skills: SkillSet[] = [
       {
         title: 'Deploy',
         data: {
+          meteor,
           ionic,
           android,
           cordova,
           docker,
-          meteor,
           git,
           heroku,
           ios
@@ -433,6 +424,16 @@ export const skills: SkillSet[] = [
           sass
         },
       }],
+  },{
+    title:'Blockchain',
+    data:{
+      solidity,
+      web3,
+      ipfs,
+      remix,
+      truffle,
+      infura,
+    },
   }];
 
 
@@ -442,17 +443,8 @@ export const skills: SkillSet[] = [
 
 export const curriculumVitae: (Job | Education)[] = [
   {
-    company: 'frontiermicroscopy',
-    description: `Responsible for designing and developing Cross border Remittance platform.
-    System includes below core modules - 
-    KYC Engine: Automates KYC for various corridors for fast customer on boarding, integrated with
-      Jumio for Document/FaceMatch verification and Trulioo for  verification.
-    Compliance Engine: Built multi level compliance check triggers integrated in database level,
-      integrated with Worldcheck for global watchlist compliance check.
-    Processing Engine: Integrated RabbitMQ and Redis for faster and sequential processing of payments 
-      even under distributed environment across multiple payment gateways.
-    Distributed Logging: Used ELK stack for log aggregation and faster searching of logs.
-    `,
+    company: 'frontiermicroscopy.com',
+    description: `Responsible for maintaining and building feautures around meteor app and integrating this app with native desktop app`,
     startsAt: new Date('2018-09-30'),
     endsAt: undefined,
     remote: true,
