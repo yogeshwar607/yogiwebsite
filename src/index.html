@@ -36,30 +36,30 @@
     }
 
     body {
-      --color-background: #272822;
-      --color-white-space: #464741;
-      --color-collapsed: #464741;
-      --color-comment: #75715E;
-      --color-variable: #F8F8F2;
-      --color-expression: #F8F8F2;
-      --color-storage-type: #66D9EF;
-      --color-keyword: #F92672;
-      --color-type: #A6E22E;
-      --color-class: #A6E22E;
-      --color-string: #E6DB74;
-      --color-constant: #AE81FF;
-      --color-number: #AE81FF;
+      --color-background: #002b36;
+  --color-white-space: #383A42;
+  --color-white-space-no-focus:#2aa198
+  --color-collapsed: #D3D4D5;
+  --color-comment: #A0A1A7;
+  --color-variable: #2E8CCF;
+  --color-expression: #85981C;
+  --color-storage-type: #cb4b16;
+  --color-keyword: #4078F2;
+  --color-type: #C18401;
+  --color-class: #C18401;
+  --color-string: #50A14F;
+  --color-constant: #986801;
+  --color-number: #986801;
 
-      --color-zsh-text: #899;
-      --color-zsh-path-background: #2E8CCF;
-      --color-zsh-path-foreground: #000;
-      --color-zsh-branch-background: #85981C;
-      --color-zsh-branch-foreground: #000;
-      --color-zsh-command-valid: #85981C;
-      --color-zsh-command-invalid: #C14C22;
-      --color-zsh-args: #cdd;
-      --color-zsh-args-autocomplete: #566;
-
+  --color-zsh-text: #909197;
+  --color-zsh-path-background: #2E8CCF;
+  --color-zsh-path-foreground: #000;
+  --color-zsh-branch-background: #85981C;
+  --color-zsh-branch-foreground: #000;
+  --color-zsh-command-valid: #75880C;
+  --color-zsh-command-invalid: #C14C22;
+  --color-zsh-args: #909197;
+  --color-zsh-args-autocomplete: #606167;
       margin: 0.3rem;
       background-color: var(--color-background);
     }
@@ -194,19 +194,16 @@
     }
   </script>
   <div id="view" class="hidden"></div>
-  <script>
-    (function (t, a, m, i, n, o, _) {
-      t['GoogleAnalyticsObject'] = n; t[n] = t[n] || function () {
-        (t[n].q = t[n].q || []).push(arguments)
-      }, t[n].l = 1 * new Date(); o = a.createElement(m),
-        _ = a.getElementsByTagName(m)[0]; o.async = 1; o.src = i; _.parentNode.insertBefore(o, _)
-    })(window, document, 'script', 'https://ssl.google-analytics.com/ga.js', 'ga');
 
-    window._gaq = []
-    _gaq.push(['_setAccount', 'UA-123335527-1'])
-    _gaq.push(['_setDomainName', 'yogeshwar.soulputs.com'])
-    _gaq.push(['_trackPageview'])
+  <!-- Google Analytics -->
+<script>
+  window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+  ga('create', 'UA-152563389-1', 'auto');
+  ga('send', 'pageview');
   </script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+  <!-- End Google Analytics -->
   <link rel="stylesheet" href="https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css"/>
 </body>
 </html>
+

@@ -12,6 +12,10 @@ if (state.language === undefined) {
   state.language = languages[Math.floor(Math.random() * languages.length)];
 }
 
+document.body.classList.add(`theme-${3}`);
+
+
+
 document.addEventListener('keydown', function (e) {
   switch (e.which) {
     case 32: {
@@ -24,7 +28,7 @@ document.addEventListener('keydown', function (e) {
       break;
     }
     case 82: {
-      state.language = Language.ruby;
+      state.language = Language.javascript;
       break;
     }
     case 74: {

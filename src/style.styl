@@ -42,6 +42,34 @@ body.theme-2 {
   --color-zsh-args-autocomplete: #606167;
 }
 
+body.theme-3 {
+  --color-background: #002b36;
+  --color-white-space: #383A42;
+  --color-white-space-no-focus:#2aa198
+  --color-collapsed: #D3D4D5;
+  --color-comment: #A0A1A7;
+  --color-variable: #2E8CCF;
+  --color-expression: #85981C;
+  --color-storage-type: #cb4b16;
+  --color-keyword: #4078F2;
+  --color-type: #C18401;
+  --color-class: #C18401;
+  --color-string: #50A14F;
+  --color-constant: #986801;
+  --color-number: #986801;
+
+  --color-zsh-text: #909197;
+  --color-zsh-path-background: #2E8CCF;
+  --color-zsh-path-foreground: #000;
+  --color-zsh-branch-background: #85981C;
+  --color-zsh-branch-foreground: #000;
+  --color-zsh-command-valid: #75880C;
+  --color-zsh-command-invalid: #C14C22;
+  --color-zsh-args: #909197;
+  --color-zsh-args-autocomplete: #606167;
+}
+
+
 .line {
   font-size: 0;
   height: 1.3rem;
@@ -118,7 +146,7 @@ body.theme-2 {
   }
   .selectable {
     &:not(.active) {
-      color: var(--color-white-space);
+      color: var(color-white-space-no-focus);
       &:hover {
         color: var(--color-comment);
         cursor: pointer;

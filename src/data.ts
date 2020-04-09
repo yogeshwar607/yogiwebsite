@@ -444,8 +444,15 @@ export const skills: SkillSet[] = [
 export const curriculumVitae: (Job | Education)[] = [
   {
     company: 'frontiermicroscopy.com',
-    description: ` Responsible for maintaining and building feautures around 
-    meteor app and integrating this app with native desktop app 
+    description: `
+    -Responsible for designing , developing and maintaining web/mobile product , predominantly
+    the msuite & cloud infrastructure.
+    
+    -Developed and maintaining meteor/node based Web app which communicates with desktop app
+    and processes things further in aws cloud pipelines.
+    
+    -Developed and published react native based mobile app which allow users to perform business 
+    related tasks on the go.
     `,
 
     startsAt: new Date('2018-10-01'),
@@ -471,14 +478,19 @@ export const curriculumVitae: (Job | Education)[] = [
   {
     company: 'xwapp',
     description: `Responsible for designing and developing Cross border Remittance platform.
+    
     System includes below core modules - 
+
     KYC Engine: Automates KYC for various corridors for fast customer on boarding, integrated with
       Jumio for Document/FaceMatch verification and Trulioo for  verification.
+    
     Compliance Engine: Built multi level compliance check triggers integrated in database level,
       integrated with Worldcheck for global watchlist compliance check.
-    Processing Engine: Integrated RabbitMQ and Redis for faster and sequential processing of payments 
-      even under distributed environment across multiple payment gateways.
+    
     Distributed Logging: Used ELK stack for log aggregation and faster searching of logs.
+    
+    Processing Engine: Integrated RabbitMQ and Redis for faster and sequential processing 
+      of payments even under distributed environment across multiple payment gateways.
     `,
     startsAt: new Date('2017-07-01'),
     endsAt: new Date('2018-10-01'),
@@ -502,17 +514,22 @@ export const curriculumVitae: (Job | Education)[] = [
   {
     company: 'instarem.com',
     description: `
-    Gained Financial Technology Domain knowledge. Was very great experience developing
+    -Gained Financial Technology Domain knowledge. Was very great experience developing
       core banking system and cross border remittance application.
-    Designed and Developed Payment Processor visioned for interconnecting Asia Pacific and Europe,
-      Australia, USA. It has successfully processed payouts of $500 Million (till Oct 2017).
-    Designed and Developed different Payment Gateways microservices for countries like Singapore,
+
+    -Designed and Developed Payment Processor visioned for interconnecting Asia Pacific
+     and Europe, Australia, USA. It has successfully processed payouts of $500 Million.
+    
+    -Designed and Developed different Payment Gateways microservices for countries like Singapore,
       Hong Kong,Malaysia, Australia, USA, India, Vietnam, Thailand.
-    Developed Compliance Engine, Validation Engine, AML Engine ,Notification services
+
+    -Developed Compliance Engine, Validation Engine, AML Engine ,Notification services
       which has reduced the manual intervention in the Organisation.
-    Actively Involved in developing core Banking system from scratch and Migration of existing
+
+    -Actively Involved in developing core Banking system from scratch and Migration of existing
       application from monolithic architecture to Microservices architecture.
-    Architected and designed Instasave which is mobile based wallet application.
+
+    -Architected and designed Instasave which is mobile based wallet application.
     `,
     startsAt: new Date('2016-07-18'),
     endsAt: new Date('2017-09-10'),
