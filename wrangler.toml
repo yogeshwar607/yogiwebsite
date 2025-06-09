@@ -3,5 +3,15 @@ name = "yogiwebsite"
 # (In dev mode, the minimal Worker (src/index.js) returns a fallback message.)
 main = "src/index.js"
 
+# Cloudflare Pages configuration
+[build]
+command = "npm run build"
+output_dir = "dist"
+
+# Wrangler site configuration
 [site]
-bucket = "./dist" 
+bucket = "./dist"
+
+# Pages configuration
+[pages]
+pages_build_output_dir = "dist" 
