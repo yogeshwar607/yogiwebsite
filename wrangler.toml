@@ -1,0 +1,7 @@
+name = "yogiwebsite"
+# Removed deprecated fields (route, account_id, type, zone_id, site.entry-point) and removed the [site] section so that wrangler dev does not serve static assets.
+# (In dev mode, the minimal Worker (src/index.js) returns a fallback message.)
+main = "src/index.js"
+
+[site]
+bucket = "./dist" 

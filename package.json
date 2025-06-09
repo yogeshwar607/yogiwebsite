@@ -5,7 +5,10 @@
     "watch": "scripts/watch.sh",
     "build": "scripts/build.sh",
     "start": "scripts/start.sh",
-    "deploy": "scripts/deploy.sh"
+    "deploy": "scripts/deploy.sh",
+    "wrangler:dev": "npx wrangler dev",
+    "wrangler:publish": "npx wrangler publish",
+    "preview": "npx serve dist"
   },
   "devDependencies": {
     "@types/node": "^8.5.2",
@@ -27,7 +30,9 @@
     "vue-loader": "^13.6.1",
     "vue-template-compiler": "^2.5.13",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7"
+    "webpack-dev-server": "^2.9.7",
+    "wrangler": "^3.0.0",
+    "serve": "^14.0.0"
   },
   "dependencies": {
     "vue": "^2.5.13"
