@@ -90,22 +90,6 @@ const cleanOptions = {
   dangerouslyAllowCleanPatternsOutsideProject: true,
 };
 
-// Minify
-const minifyOptions = {
-  terserOptions: {
-    ecma: 2020,
-    compress: {
-      drop_console: true,
-      drop_debugger: true,
-      pure_funcs: ['console.log'],
-    },
-    format: {
-      comments: false,
-    },
-  },
-  extractComments: false,
-};
-
 /// Export
 const title = '~/yogeshwar/main.ts';
 const path = '/';
@@ -216,8 +200,28 @@ if (process.env.NODE_ENV === 'production') {
     })
   );
 
-  config.optimization.minimize = true;
-  config.optimization.minimizer = [new TerserPlugin(minifyOptions)];
+  config.optimization = {
+    ...config.optimization,
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        test: /\.js(\?.*)?$/i,
+        parallel: true,
+        terserOptions: {
+          ecma: 2020,
+          compress: {
+            drop_console: true,
+            drop_debugger: true,
+            pure_funcs: ['console.log'],
+          },
+          format: {
+            comments: false,
+          },
+        },
+        extractComments: false,
+      }),
+    ],
+  };
 
   config.plugins.push(new OfflinePlugin({
     publicPath: '/',
