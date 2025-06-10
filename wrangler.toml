@@ -8,10 +8,6 @@ main = "src/index.js"
 command = "npm run build"
 output_dir = "dist"
 
-# Wrangler site configuration
-[site]
-bucket = "./dist"
-
 # Pages configuration
 [pages]
 pages_build_output_dir = "dist" 
