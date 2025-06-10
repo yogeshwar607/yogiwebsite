@@ -1,5 +1,5 @@
 const resolve = require('path').resolve;
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
@@ -17,9 +17,9 @@ const stylusRule = {
     {
       loader: 'stylus-loader',
       options: {
-        use: [
+        stylusOptions: {
           // Stylus plugins
-        ],
+        },
       },
     },
   ],
@@ -46,62 +46,48 @@ const vueRule = {
   },
 };
 
-// YamlLoader
-const yamlRule = {
-  test: /\.ya?ml$/,
-  loader: 'yml-loader',
-  exclude: /node_modules/,
-};
-
 // TypeScript
 const tsRule = {
   test: /\.tsx?$/,
-  loader: 'ts-loader',
+  use: [
+    {
+      loader: 'ts-loader',
+      options: {
+        appendTsSuffixTo: [/\.vue$/],
+        transpileOnly: true, // Faster builds
+      },
+    },
+  ],
   exclude: /node_modules/,
-  options: {
-    appendTsSuffixTo: [/\.vue$/],
-  },
 };
 
-// Images
-const imageRule = {
-  test: /\.(png|svg|jpg|gif)$/,
-  loader: 'file-loader',
-  options: {
-    name: '[name].[ext]?[hash]'
+// Images and other assets
+const assetRule = {
+  test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
+  type: 'asset',
+  parser: {
+    dataUrlCondition: {
+      maxSize: 8 * 1024, // 8kb - inline if smaller
+    },
+  },
+  generator: {
+    filename: 'assets/images/[name].[hash][ext]',
   },
 };
 
 // XML
 const xmlRule = {
   test: /\.xml$/,
-  use: [
-    'xml-loader',
-  ],
+  type: 'asset/source',
 };
-
 
 /// Plugin Options
 
 // CleanWebpackPlugin
-const cleanPaths = [
-  'dist/*',
-];
 const cleanOptions = {
-  root: resolve('.'),
-  exlude: [
-    '.keep',
-  ],
-};
-
-// Runtime Chunk
-const runtimeChunkOptions = {
-  name: 'runtime',
-};
-
-// Vendor Chunk
-const vendorChunkOptions = {
-  name: 'vendor',
+  cleanOnceBeforeBuildPatterns: ['dist/*'],
+  cleanAfterEveryBuildPatterns: [],
+  dangerouslyAllowCleanPatternsOutsideProject: true,
 };
 
 // Minify
@@ -110,6 +96,8 @@ const minifyOptions = {
     ecma: 2020,
     compress: {
       drop_console: true,
+      drop_debugger: true,
+      pure_funcs: ['console.log'],
     },
     format: {
       comments: false,
@@ -125,92 +113,123 @@ const path = '/';
 const transform = (content, filePath) => {
   if (filePath.endsWith('.json') || filePath.endsWith('.xml')) {
     return content.toString().replace(/#\{title\}/g, title).replace(/#\{path\}/g, path);
-  } else {
-    return content;
   }
+  return content;
 };
+
 const config = {
   entry: './index.ts',
   output: {
-    filename: '[name].[hash].js',
+    filename: '[name].[contenthash].js',
     path: resolve('dist'),
+    publicPath: '/',
+    clean: true, // Webpack 5 built-in clean
   },
   context: resolve('src'),
   performance: {
-    hints: false
+    hints: process.env.NODE_ENV === 'production' ? 'warning' : false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
   },
   module: {
     rules: [
-      yamlRule,
+      tsRule,
+      vueRule,
       stylusRule,
       cssRule,
-      vueRule,
-      imageRule,
+      assetRule,
       xmlRule,
-      tsRule,
     ],
   },
   resolve: {
     extensions: ['.ts', '.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
+      '@': resolve('src'), // Add alias for src directory
+    },
+    fallback: {
+      // Add polyfills if needed
+      "path": false,
+      "fs": false,
     },
   },
   plugins: [
-    new CleanWebpackPlugin(cleanPaths, cleanOptions),
-    new CopyWebpackPlugin([
-      { transform, from: 'public' },
-    ]),
-    new webpack.HashedModuleIdsPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
+    new CleanWebpackPlugin(cleanOptions),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'public',
+          transform,
+          noErrorOnMissing: true,
+        },
+      ],
+    }),
+    new webpack.ids.HashedModuleIdsPlugin(), // Replaces HashedModuleIdsPlugin
     new HtmlWebpackPlugin({
       path,
       title,
       template: 'index.html',
       minify: process.env.NODE_ENV === 'production' ? {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        collapseWhitespace: true,
-        collapseInlineTagWhitespace: true,
+        minifyURLs: true,
       } : false,
     }),
   ],
-};
-
-if (process.env.NODE_ENV === 'production') {
-  config.plugins.push(new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: '"production"',
-    },
-  }));
-
-  // Replace UglifyJsWebpackPlugin with TerserPlugin in optimization
-  config.optimization = {
-    minimize: true,
-    minimizer: [new TerserPlugin(minifyOptions)],
-    runtimeChunk: runtimeChunkOptions,
+  optimization: {
+    moduleIds: 'deterministic',
+    runtimeChunk: 'single',
     splitChunks: {
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
+          name: 'vendors',
           chunks: 'all',
+          priority: 10,
+        },
+        common: {
+          name: 'common',
+          minChunks: 2,
+          chunks: 'all',
+          priority: 5,
+          reuseExistingChunk: true,
         },
       },
     },
-  };
+  },
+};
+
+if (process.env.NODE_ENV === 'production') {
+  config.mode = 'production';
+  config.plugins.push(
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    })
+  );
+
+  config.optimization.minimize = true;
+  config.optimization.minimizer = [new TerserPlugin(minifyOptions)];
 
   config.plugins.push(new OfflinePlugin({
     publicPath: '/',
-    externals: [
-      '/',
-    ],
+    externals: ['/'],
     updateStrategy: 'changed',
     autoUpdate: 1000 * 60 * 2,
     caches: {
       main: [
         'index.html',
         'main.*.js',
+        'vendors.*.js',
+        'common.*.js',
       ],
     },
     ServiceWorker: {
@@ -218,19 +237,29 @@ if (process.env.NODE_ENV === 'production') {
       navigateFallbackURL: '/',
     },
     AppCache: {
-      events: true
+      events: true,
     },
   }));
 } else {
-  config.devtool = '#eval-source-map';
+  config.mode = 'development';
+  config.devtool = 'eval-source-map';
   config.devServer = {
     port: 4001,
     hot: true,
     host: 'localhost',
     historyApiFallback: true,
-    noInfo: false,
-    contentBase: './dist',
-    disableHostCheck: true
+    static: {
+      directory: resolve('dist'),
+      publicPath: '/',
+    },
+    client: {
+      overlay: true,
+      progress: true,
+    },
+    compress: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
   };
 }
 
