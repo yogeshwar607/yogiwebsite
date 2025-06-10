@@ -3,7 +3,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 /// Rules
@@ -175,6 +174,7 @@ config.mode = process.env.NODE_ENV === 'production' ? 'production' : 'developmen
 config.optimization = {
   moduleIds: 'deterministic',
   runtimeChunk: 'single',
+  minimize: process.env.NODE_ENV === 'production',
   splitChunks: {
     cacheGroups: {
       vendor: {
@@ -203,29 +203,6 @@ if (process.env.NODE_ENV === 'production') {
       },
     })
   );
-
-  // Production specific optimization
-  config.optimization.minimize = true;
-  config.optimization.minimizer = [
-    new TerserPlugin({
-      test: /\.js(\?.*)?$/i,
-      include: /\.js$/,
-      exclude: /node_modules/,
-      parallel: true,
-      terserOptions: {
-        ecma: 2020,
-        compress: {
-          drop_console: true,
-          drop_debugger: true,
-          pure_funcs: ['console.log'],
-        },
-        format: {
-          comments: false,
-        },
-      },
-      extractComments: false,
-    }),
-  ];
 
   // Add offline plugin
   config.plugins.push(
