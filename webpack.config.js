@@ -3,7 +3,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
-const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 /// Rules
@@ -105,11 +105,17 @@ const vendorChunkOptions = {
 };
 
 // Minify
-var minifyOptions = {
-  sourceMap: false,
-  uglifyOptions: {
-    ecma: 6,
+const minifyOptions = {
+  terserOptions: {
+    ecma: 2020,
+    compress: {
+      drop_console: true,
+    },
+    format: {
+      comments: false,
+    },
   },
+  extractComments: false,
 };
 
 /// Export
@@ -177,7 +183,23 @@ if (process.env.NODE_ENV === 'production') {
       NODE_ENV: '"production"',
     },
   }));
-  config.plugins.push(new UglifyJsWebpackPlugin(minifyOptions));
+
+  // Replace UglifyJsWebpackPlugin with TerserPlugin in optimization
+  config.optimization = {
+    minimize: true,
+    minimizer: [new TerserPlugin(minifyOptions)],
+    runtimeChunk: runtimeChunkOptions,
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        },
+      },
+    },
+  };
+
   config.plugins.push(new OfflinePlugin({
     publicPath: '/',
     externals: [
