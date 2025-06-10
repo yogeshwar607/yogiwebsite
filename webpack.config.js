@@ -2,7 +2,6 @@ const resolve = require('path').resolve;
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const OfflinePlugin = require('offline-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 /// Rules
@@ -200,31 +199,6 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
-      },
-    })
-  );
-
-  // Add offline plugin
-  config.plugins.push(
-    new OfflinePlugin({
-      publicPath: '/',
-      externals: ['/'],
-      updateStrategy: 'changed',
-      autoUpdate: 1000 * 60 * 2,
-      caches: {
-        main: [
-          'index.html',
-          'main.*.js',
-          'vendors.*.js',
-          'common.*.js',
-        ],
-      },
-      ServiceWorker: {
-        events: true,
-        navigateFallbackURL: '/',
-      },
-      AppCache: {
-        events: true,
       },
     })
   );
