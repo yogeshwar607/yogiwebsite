@@ -107,7 +107,7 @@ const config = {
     filename: '[name].[contenthash].js',
     path: resolve('dist'),
     publicPath: '/',
-    clean: true, // Webpack 5 built-in clean
+    clean: true,
   },
   context: resolve('src'),
   performance: {
@@ -129,10 +129,9 @@ const config = {
     extensions: ['.ts', '.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'), // Add alias for src directory
+      '@': resolve('src'),
     },
     fallback: {
-      // Add polyfills if needed
       "path": false,
       "fs": false,
     },
@@ -148,7 +147,7 @@ const config = {
         },
       ],
     }),
-    new webpack.ids.HashedModuleIdsPlugin(), // Replaces HashedModuleIdsPlugin
+    new webpack.ids.HashedModuleIdsPlugin(),
     new HtmlWebpackPlugin({
       path,
       title,
@@ -167,31 +166,36 @@ const config = {
       } : false,
     }),
   ],
-  optimization: {
-    moduleIds: 'deterministic',
-    runtimeChunk: 'single',
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
-          priority: 10,
-        },
-        common: {
-          name: 'common',
-          minChunks: 2,
-          chunks: 'all',
-          priority: 5,
-          reuseExistingChunk: true,
-        },
+};
+
+// Set mode based on environment
+config.mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
+
+// Base optimization config
+config.optimization = {
+  moduleIds: 'deterministic',
+  runtimeChunk: 'single',
+  splitChunks: {
+    cacheGroups: {
+      vendor: {
+        test: /[\\/]node_modules[\\/]/,
+        name: 'vendors',
+        chunks: 'all',
+        priority: 10,
+      },
+      common: {
+        name: 'common',
+        minChunks: 2,
+        chunks: 'all',
+        priority: 5,
+        reuseExistingChunk: true,
       },
     },
   },
 };
 
 if (process.env.NODE_ENV === 'production') {
-  config.mode = 'production';
+  // Production specific plugins
   config.plugins.push(
     new webpack.DefinePlugin({
       'process.env': {
@@ -200,52 +204,55 @@ if (process.env.NODE_ENV === 'production') {
     })
   );
 
-  config.optimization = {
-    ...config.optimization,
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        test: /\.js(\?.*)?$/i,
-        parallel: true,
-        terserOptions: {
-          ecma: 2020,
-          compress: {
-            drop_console: true,
-            drop_debugger: true,
-            pure_funcs: ['console.log'],
-          },
-          format: {
-            comments: false,
-          },
+  // Production specific optimization
+  config.optimization.minimize = true;
+  config.optimization.minimizer = [
+    new TerserPlugin({
+      test: /\.js(\?.*)?$/i,
+      include: /\.js$/,
+      exclude: /node_modules/,
+      parallel: true,
+      terserOptions: {
+        ecma: 2020,
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+          pure_funcs: ['console.log'],
         },
-        extractComments: false,
-      }),
-    ],
-  };
+        format: {
+          comments: false,
+        },
+      },
+      extractComments: false,
+    }),
+  ];
 
-  config.plugins.push(new OfflinePlugin({
-    publicPath: '/',
-    externals: ['/'],
-    updateStrategy: 'changed',
-    autoUpdate: 1000 * 60 * 2,
-    caches: {
-      main: [
-        'index.html',
-        'main.*.js',
-        'vendors.*.js',
-        'common.*.js',
-      ],
-    },
-    ServiceWorker: {
-      events: true,
-      navigateFallbackURL: '/',
-    },
-    AppCache: {
-      events: true,
-    },
-  }));
+  // Add offline plugin
+  config.plugins.push(
+    new OfflinePlugin({
+      publicPath: '/',
+      externals: ['/'],
+      updateStrategy: 'changed',
+      autoUpdate: 1000 * 60 * 2,
+      caches: {
+        main: [
+          'index.html',
+          'main.*.js',
+          'vendors.*.js',
+          'common.*.js',
+        ],
+      },
+      ServiceWorker: {
+        events: true,
+        navigateFallbackURL: '/',
+      },
+      AppCache: {
+        events: true,
+      },
+    })
+  );
 } else {
-  config.mode = 'development';
+  // Development specific config
   config.devtool = 'eval-source-map';
   config.devServer = {
     port: 4001,
